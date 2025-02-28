@@ -17,6 +17,7 @@ import {
   } from 'react-swipeable-list';
   import 'react-swipeable-list/dist/styles.css';
 import { DeleteOutline } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 
 interface TransactionItemProps {
@@ -93,11 +94,14 @@ const leadingActions = () => (
         </TrailingActions>
 
   );
-  const handleItemClick = (item: SbiTransaction) => {
-    // window.location.href = `/${item.id}`;
-};
-
 const TransactionItem: React.FC<TransactionItemProps> = ({ item, handleToggleBudget, handleWarikanOpen}) => {
+    const navigate = useNavigate();
+
+    const handleItemClick = (item: SbiTransaction) => {
+        // window.location.href = `/${item.id}`;
+        console.log(item.id);
+        navigate(`/detail/${item.id}`);
+    }
     return (
         <SwipeableList
             fullSwipe={true}
@@ -226,7 +230,9 @@ const getMerchantName = (merchant_name: string | null): string => {
 
 const dateFormat = (date: string): string => {
     const dateObj = new Date(date);
-    return  (dateObj.getMonth() + 1) + "月" + dateObj.getDate() + "日 " + dateObj.getHours() + "時" + dateObj.getMinutes() + "分";
+    const hours = String(dateObj.getHours()).padStart(2, "0");
+    const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+    return hours + "時" + minutes + "分";
 }
 
 // .00になるので 小数点以下切り捨てる

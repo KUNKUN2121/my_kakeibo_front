@@ -4,8 +4,9 @@ import Button from '@mui/material/Button';
 import WeekTodayContainer from '../components/WeekTodayContainer';
 import MonthAmountContainer from '../components/MonthAmountContainer';
 import TransactionList from '../components/TransactionList';
-import BottomNavigation from '../components/BottomNavigation';
 import BtmNav from '../components/BottomNavigation';
+import AddIcon from '@mui/icons-material/Add';
+import { Fab } from '@mui/material';
 
 interface SbiTransaction {
     id: string;
@@ -33,7 +34,7 @@ const Home: React.FC = () => {
 
             var url = import.meta.env.VITE_ENV_API_SERVER_URL;
             var month = new Date().getFullYear() * 100 + (new Date().getMonth() + 1); // 現在の月をYYYYMM形式で取得
-            month = 202502;
+            // month = 202502;
 
             const response = await fetch(`${url}/api/transactions?month=${month}`, {
             });
@@ -55,25 +56,52 @@ const Home: React.FC = () => {
             fetchTransactions();
         }, []);
 
-    const wapper = css`
-        height: 100vh;
-        width: 100%;
-    `;
+const wapper = css`
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 56px);
+`;
 
 const AddBtnCss = css`
     width: 100%;
 `;
 
+const kotei = css`
+    flex-grow: 1;
+    overflow-y: auto;
+    flex-shrink: 0;
+`;
 
+const transactionCss = css`
+    overflow: auto;
+    /* flex-grow: 1; */
+`;
+
+const addBtnCss = css`
+/* 薄い青色のぼたん　 */
+    position: absolute;
+    right: 10px;
+    bottom: 80px;
+    z-index: 1000;
+`;
 console.log(import.meta.env.VITE_ENV_API_SERVER_URL);
     return (
         <div css={wapper}>
-            <MonthAmountContainer totalAmount={totalAmount} />
-            <WeekTodayContainer totalAmount={totalAmount} />
-            {/* 収入と支出を見よう */}
-            <Button css={AddBtnCss}>追加</Button>
-            <TransactionList sbiTransactions={sbiTransactions} />
-            <BtmNav />
+            <div css={kotei}>
+                <MonthAmountContainer totalAmount={totalAmount} />
+                <WeekTodayContainer totalAmount={totalAmount} />
+            </div>
+            <div css={addBtnCss}>
+                <Fab color="primary" aria-label="add">
+                <AddIcon />
+                </Fab>
+            </div>
+            <div css={transactionCss}>
+                <TransactionList 
+                    sbiTransactions={sbiTransactions} 
+                    fetchTransactions={fetchTransactions}
+                /></div>
+            
         </div>
     );
 };
