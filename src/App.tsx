@@ -7,14 +7,19 @@ import {
 import Detail from "./pages/Detail";
 import BtmNav from "./components/BottomNavigation";
 import { css } from "@emotion/react";
+import "./styles/global.css";
+import Calendar from "./pages/Calender";
   
 const wapper = css`
-    height: 100dvh;
+    
     overflow: hidden;   
     width: 100%;
     display: flex;
     flex-direction: column;
     position: absolute;
+    height: 100dvh;
+    overflow-y: hidden;
+    
 `;
   
   const App = () => {
@@ -26,6 +31,7 @@ const wapper = css`
           <Route path='/detail' element={<Detail />}>
             <Route path=':id' element={<Detail />} />
           </Route>
+          <Route path='/calender' element={<Calendar />} />
 
         </Routes>
         <BtmNav />

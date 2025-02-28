@@ -59,7 +59,8 @@ const Home: React.FC = () => {
 const wapper = css`
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 56px);
+    height: calc(100dvh - 56px);
+    overflow-y: hidden;
 `;
 
 const AddBtnCss = css`
@@ -100,7 +101,8 @@ console.log(import.meta.env.VITE_ENV_API_SERVER_URL);
                 <TransactionList 
                     sbiTransactions={sbiTransactions} 
                     fetchTransactions={fetchTransactions}
-                /></div>
+                />
+                </div>
             
         </div>
     );
