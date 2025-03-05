@@ -29,12 +29,19 @@ interface TotalAmount {
 const Home: React.FC = () => {
     const [sbiTransactions, setSbiTransactions] = useState<SbiTransaction[]>([]);
     const [totalAmount, setTotalAmount] = useState<TotalAmount>({ month: 0 });
+    const [selectedMonth, setSelectedMonth] = useState<number>(null);
     const fetchTransactions = async () => {
         try {
 
             var url = import.meta.env.VITE_ENV_API_SERVER_URL;
-            var month = new Date().getFullYear() * 100 + (new Date().getMonth() + 1); // 現在の月をYYYYMM形式で取得
+            // selectedMonth がnullの場合、現在の月にする
+            var month = selectedMonth;
+            if (!month) {
+                month = new Date().getFullYear() * 100 + new Date().getMonth() + 1;
+            }
+
             // month = 202502;
+            // 現在の月をYYYYMM形式で取得
 
             const response = await fetch(`${url}/api/transactions?month=${month}`, {
             });
@@ -53,8 +60,13 @@ const Home: React.FC = () => {
 
         // 初回レンダリング時にデータを取得
         useEffect(() => {
+            setSelectedMonth(new Date().getFullYear() * 100 + new Date().getMonth() + 1);
             fetchTransactions();
         }, []);
+
+        useEffect(() => {
+            fetchTransactions();
+        }, [selectedMonth]);
 
 const wapper = css`
     display: flex;
@@ -89,7 +101,7 @@ console.log(import.meta.env.VITE_ENV_API_SERVER_URL);
     return (
         <div css={wapper}>
             <div css={kotei}>
-                <MonthAmountContainer totalAmount={totalAmount} />
+                <MonthAmountContainer totalAmount={totalAmount} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
                 <WeekTodayContainer totalAmount={totalAmount} />
             </div>
             <div css={addBtnCss}>
