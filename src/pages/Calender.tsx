@@ -67,11 +67,16 @@ const Calendar: React.FC = () => {
                         height={"80%"}
                         
                         events={[
-                            ...groupByDateAmount(transactions).map((item) => {
-                                return { title: removeDecimal(item.amount), date: item.date }
-                            }),
-                            // { title: 'event 1', date: '2025-02-01' },
-                            // { title: 'event 2', date: '2025-02-02' }
+                            ...groupByDateAmount(transactions)
+                                .map((item) => {
+                                    // amountが0の場合は表示しない
+                                    if (parseFloat(item.amount) === 0) {
+                                        return null; // ここで null を返す
+                                    }
+                                    
+                                    return { title: removeDecimal(parseFloat(item.amount)), date: item.date };
+                                })
+                                .filter(item => item !== null),  // nullを取り除く
                         ]}
                     />
                 </div>
@@ -106,8 +111,13 @@ const groupByDate = (transactions: SbiTransaction[]) => {
 
 const groupByDateAmount = (transactions: SbiTransaction[]) => {
     const groupDate = groupByDate(transactions);
+    console.log(groupDate);
     const result =  Object.entries(groupDate).map(([date, transactions]) => {
         const amount = transactions.reduce((acc, transaction) => {
+            if (transaction.is_registered_to_budget == false) {
+                console.log("is_registered_to_budget is false");
+                return acc;
+            }
             const amount = typeof transaction.amount === "string" ? parseFloat(transaction.amount) : transaction.amount;
             return acc + amount;
         }, 0);
