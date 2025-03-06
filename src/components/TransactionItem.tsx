@@ -237,7 +237,6 @@ const dateFormat = (date: string): string => {
 
 // .00になるので 小数点以下切り捨てる
 const amountFormat = (amount: number, currency:string): string => {
-
     return Math.floor(amount).toLocaleString();
 }
 

@@ -35,6 +35,27 @@ const DetailTable: React.FC = ({  }) => {
                 <KeyboardArrowDownIcon color="inherit"/>
                 
             </div>
+            {/* 2 */}
+            <div css={contentCss}
+             onClick={toggleDrawer}
+             >
+                <div>
+                    <SourceIcon />
+                    支払い
+                </div>
+                <SwipeableDrawer
+                    anchor="bottom"
+                    open={isDrawerOpen}
+                    onClose={() => console.log("close")}
+                    onOpen={() => console.log("open")}
+                >
+                    <div css={drawerWapper}>
+                        <h1>支払い</h1>
+                    </div>
+                </SwipeableDrawer>
+                <KeyboardArrowDownIcon color="inherit"/>
+                
+            </div>
         </div>
     );
 };

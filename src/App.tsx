@@ -9,6 +9,7 @@ import BtmNav from "./components/BottomNavigation";
 import { css } from "@emotion/react";
 import "./styles/global.css";
 import Calendar from "./pages/Calender";
+import { useState } from "react";
   
 const wapper = css`
     
@@ -23,6 +24,8 @@ const wapper = css`
 `;
   
   const App = () => {
+    // ボトムナビゲーションのvalueを管理
+    const [bottomNavValue, setBottomNavValue] = useState(0);
     return (
         <div css={wapper}>
       <BrowserRouter>
@@ -34,7 +37,7 @@ const wapper = css`
           <Route path='/calender' element={<Calendar />} />
 
         </Routes>
-        <BtmNav />
+        <BtmNav bottomNavValue={bottomNavValue} setBottomNavValue={setBottomNavValue} />
       </BrowserRouter>
       
       </div>

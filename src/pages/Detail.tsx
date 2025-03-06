@@ -7,6 +7,7 @@ import { AppBar, Button, CircularProgress, IconButton, Skeleton, Toolbar, Typogr
 import React, { useEffect } from 'react';
 import DetailTable from '../components/Detail/DetailTable';
 import { useParams } from 'react-router-dom';
+import { formatDate, removeDecimal } from '../api/Function';
 
 interface DetailItem {
     transaction_date: string;
@@ -102,9 +103,9 @@ const Detail: React.FC = ({
             <div css={topCss}>
                 {detailItem ? (
                     <>
-                        <h1>{detailItem.transaction_date}</h1>
+                        <h1>{formatDate(detailItem.transaction_date)}</h1>
                         <h2>{detailItem.merchant_name}</h2>
-                        <h3>¥{detailItem.amount}</h3>
+                        <h3>¥{removeDecimal(detailItem.amount)}</h3>
                     </>
                 ) : (
                     <>
@@ -115,9 +116,7 @@ const Detail: React.FC = ({
             </div>
             <DetailTable  />
             
-            <p>カテゴリー</p>
             <p>メモ</p>
-            <p>住信SBIネット銀行</p>
             
         </div>
     );
@@ -128,7 +127,7 @@ export default Detail;
 const wapper = css`
     display: flex;
     flex-direction: column;
-    /* flex: 1; */
+    flex: 1;
 `;
 
 const topCss = css`
@@ -136,6 +135,7 @@ const topCss = css`
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+    
 
     h1 {
         font-size: 20px;
@@ -143,7 +143,7 @@ const topCss = css`
 
     h2 {
         padding-top: 8px;
-        font-size: 16px;
+        font-size: 20px;
         color: #333;
     }
 

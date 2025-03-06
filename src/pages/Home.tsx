@@ -8,17 +8,6 @@ import BtmNav from '../components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab } from '@mui/material';
 
-interface SbiTransaction {
-    id: string;
-    approval_number: string;
-    transaction_date: string;
-    merchant_name: string | null;
-    currency: string;
-    amount: number;
-    memo: string;
-    is_registered_to_budget: boolean;
-    is_confirmed: boolean;
-}
 
 interface TotalAmount {
     month: number;
