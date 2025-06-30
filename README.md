@@ -6,7 +6,7 @@ APIサーバから取得したデータをきれいに
 
 ![家計簿画面](https://i.gyazo.com/b5a6fa6f3dc72efec9f37aca0c72dde4.png)
 
-APIサーバはこちらです。（[my-kakeibo-front](https://github.com/KUNKUN2121/my_kakeibo_api)）
+APIサーバはこちらです。（[my-kakeibo-api](https://github.com/KUNKUN2121/my_kakeibo_api)）
 
 ## 🔧 技術スタック
 
